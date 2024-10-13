@@ -25,7 +25,7 @@ public class BallController : MonoBehaviour
 
     private void Start()
     {
-        solveColor = Random.ColorHSV(0.5f, 1);
+        solveColor = Random.ColorHSV(.5f, 1); //only takes light colours
         GetComponent<MeshRenderer>().material.color = solveColor;
     }
 
@@ -35,7 +35,7 @@ public class BallController : MonoBehaviour
     {
         if (isTraveling)
         {
-            rb.velocity = speed * travelDirection;
+            rb.velocity = travelDirection *speed;
         }
 
         //change ground color
