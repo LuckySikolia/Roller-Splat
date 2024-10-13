@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BallController : MonoBehaviour
@@ -20,7 +21,13 @@ public class BallController : MonoBehaviour
     private Vector2 swipePosCurrentFrame;
     private Vector2 currentSwipe;
 
+    private Color solveColor;
 
+    private void Start()
+    {
+        solveColor = Random.ColorHSV(0.5f, 1);
+        GetComponent<MeshRenderer>().material.color = solveColor;
+    }
 
 
 
@@ -30,6 +37,23 @@ public class BallController : MonoBehaviour
         {
             rb.velocity = speed * travelDirection;
         }
+
+        //change ground color
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position - (Vector3.up / 2), 0.05f);
+        //Debug.Log("Detected Colliders: " + hitColliders.Length);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            GroundPiece ground = hitColliders[i].transform.GetComponent<GroundPiece>();
+            if(ground && !ground.isColored)
+            {
+                //Debug.Log("Ground detected: " + hitColliders[i].name); // Log the name of the detected ground
+                ground.ChangeColor(solveColor);
+            }
+            i++;
+        }
+
+
 
         if(nextCollisionPosition != Vector3.zero)
         {
@@ -41,6 +65,8 @@ public class BallController : MonoBehaviour
             }
         }
 
+
+        //swipe logic
         //control swipe mechanism code if code is not travelling
         if (isTraveling)
         {
