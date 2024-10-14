@@ -14,10 +14,13 @@ public class GameManager : MonoBehaviour
     //particle system refreence
     public ParticleSystem winEffect;
 
-    void Start()
-    {
-        SetupNewLevel();
-    }
+    //void Start()
+    //{
+    //    //Load the start menu when the game starts
+    //    SceneManager.LoadScene("StartMenu");
+    //    Debug.Log("Start Menu Load");
+    //    //SetupNewLevel();
+    //}
 
     private void SetupNewLevel()
     {
@@ -84,7 +87,7 @@ public class GameManager : MonoBehaviour
     //Coroutine to wait before loading the next level
     private IEnumerator NextLevelWithDelay()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
 
         NextLevel();
     }
@@ -92,17 +95,37 @@ public class GameManager : MonoBehaviour
 
 
 
+    //private void NextLevel()
+    //{
+    //    if (SceneManager.GetActiveScene().buildIndex == 1)
+    //    {
+    //        SceneManager.LoadScene(1);
+    //    }
+    //    else
+    //    {
+    //        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    //    }
+
+    //}
+
     private void NextLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex == 1)
+        //get the current scene index
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        //Load the next level based on the current index
+        if (currentSceneIndex >= SceneManager.sceneCountInBuildSettings - 1) //check if this is the last level
         {
+            //Go back to start screen
             SceneManager.LoadScene(0);
+            Debug.Log("Game complete");
         }
         else
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            //load the next scene
+            SceneManager.LoadScene(currentSceneIndex + 1);
+            Debug.Log("Load New Level");
         }
-
     }
 
 
