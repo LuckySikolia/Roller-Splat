@@ -11,6 +11,8 @@ public class BallController : MonoBehaviour
     //control speed
     public float speed = 15f;
 
+    
+
     //check if ball is moving and direction of movement
     private bool isTraveling;
     private Vector3 travelDirection;
@@ -27,6 +29,8 @@ public class BallController : MonoBehaviour
     {
         solveColor = Random.ColorHSV(.5f, 1); //only takes light colours
         GetComponent<MeshRenderer>().material.color = solveColor;
+
+
     }
 
 
