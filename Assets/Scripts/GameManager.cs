@@ -11,8 +11,9 @@ public class GameManager : MonoBehaviour
 
     private GroundPiece[] allGroundPieces;
 
-    //particle system refreence
+    //particle system reference
     public ParticleSystem winEffect;
+    private AudioSource winAudioSource; 
 
 
     private void SetupNewLevel()
@@ -31,6 +32,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        //get the audioSource componenet
+        winAudioSource = gameObject.GetComponent<AudioSource>();
      
     }
 
@@ -62,8 +66,9 @@ public class GameManager : MonoBehaviour
         if (isFinished)
         {
             //trigger particle effect before loading next level
-            PlayWinEffect();  ///NB! Not working with level 2
 
+            PlayWinEffect();///NB! Not working with level 2
+            PlayWinSound(); 
             StartCoroutine(NextLevelWithDelay());
 
         }
@@ -81,6 +86,18 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogWarning("Win Effect Particle System is not assigned!");
+        }
+    }
+
+    private void PlayWinSound()
+    {
+        if (winAudioSource != null)
+        {
+            winAudioSource.Play(); //play the sound effect
+        }
+        else
+        {
+            Debug.LogWarning("Win AudioSource is not assigned!");
         }
     }
 
@@ -116,7 +133,7 @@ public class GameManager : MonoBehaviour
         if (currentSceneIndex >= SceneManager.sceneCountInBuildSettings - 1) //check if this is the last level
         {
             //Go back to start screen
-            //SceneManager.LoadScene(0);
+            SceneManager.LoadScene(0);
             Debug.Log("Game complete");
         }
         else
