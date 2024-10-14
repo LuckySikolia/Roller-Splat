@@ -4698,10 +4698,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: BallPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 4305189870324428035, guid: 7d1a274fd319ca54087ea5d135d21332, type: 3}
-      propertyPath: m_Name
-      value: ParticleSystem
-      objectReference: {fileID: 0}
     - target: {fileID: 6573932568289617684, guid: 7d1a274fd319ca54087ea5d135d21332, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.94
