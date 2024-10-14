@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     private void OnLevelFinishedLoading(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
         SetupNewLevel();
-
     }
 
 
