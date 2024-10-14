@@ -9,7 +9,7 @@ public class BallController : MonoBehaviour
     public Rigidbody rb;
 
     //control speed
-    public float speed = 15f;
+    public float speed = 55f;
 
     
 

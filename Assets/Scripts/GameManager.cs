@@ -14,13 +14,6 @@ public class GameManager : MonoBehaviour
     //particle system refreence
     public ParticleSystem winEffect;
 
-    //void Start()
-    //{
-    //    //Load the start menu when the game starts
-    //    SceneManager.LoadScene("StartMenu");
-    //    Debug.Log("Start Menu Load");
-    //    //SetupNewLevel();
-    //}
 
     private void SetupNewLevel()
     {
@@ -38,6 +31,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+     
     }
 
     private void OnEnable()
@@ -48,8 +42,10 @@ public class GameManager : MonoBehaviour
     private void OnLevelFinishedLoading(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
         SetupNewLevel();
+
     }
-    
+
+
     public void CheckComplete()
     {
         bool isFinished = true;
@@ -66,33 +62,36 @@ public class GameManager : MonoBehaviour
         if (isFinished)
         {
             //trigger particle effect before loading next level
-            PlayWinEffect();
+            PlayWinEffect();  ///NB! Not working with level 2
 
-            //Delay the next level load slightly so the effect can play
             StartCoroutine(NextLevelWithDelay());
-            //call next level
-            //NextLevel();
+
         }
     }
 
     //play the particle effect for the win
     private void PlayWinEffect()
     {
-        if(winEffect != null)
+        Debug.Log($"PlayWinEffect called. winEffect is null: {winEffect == null}");
+        if (winEffect != null)
         {
             winEffect.Play();
+            Debug.Log("Particle effect played");
+        }
+        else
+        {
+            Debug.LogWarning("Win Effect Particle System is not assigned!");
         }
     }
+
+
 
     //Coroutine to wait before loading the next level
     private IEnumerator NextLevelWithDelay()
     {
-        yield return new WaitForSeconds(5f);
-
+        yield return new WaitForSeconds(3f);
         NextLevel();
     }
-
-
 
 
     //private void NextLevel()
@@ -117,7 +116,7 @@ public class GameManager : MonoBehaviour
         if (currentSceneIndex >= SceneManager.sceneCountInBuildSettings - 1) //check if this is the last level
         {
             //Go back to start screen
-            SceneManager.LoadScene(0);
+            //SceneManager.LoadScene(0);
             Debug.Log("Game complete");
         }
         else
